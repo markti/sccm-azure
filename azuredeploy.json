@@ -2,6 +2,12 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+	"envName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the environment (used as a prefix)"
+      }
+	},
     "adminUsername": {
       "type": "string",
       "metadata": {
@@ -31,7 +37,7 @@
       "metadata": {
         "description": "The location of resources, such as templates and DSC modules, that the template depends on"
       },
-      "defaultValue": "https://raw.githubusercontent.com/markti/sccm-azure/master/active-directory-new-domain"
+      "defaultValue": "https://raw.githubusercontent.com/markti/sccm-azure/master"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -42,7 +48,7 @@
     }
   },
   "variables": {
-    "virtualNetworkName": "adVNET",
+    "virtualNetworkName": "[concat(parameters('envName'), 'VNET')]",
     "virtualNetworkAddressRange": "10.0.0.0/16",
     "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'adsa')]",
     "adLBFE": "LBFE",
@@ -53,6 +59,8 @@
     "adVMName": "adVM",
     "adSubnetName": "adSubnet",
     "adSubnetAddressPrefix": "10.0.0.0/24",
+    "sccmSubnetName": "adSubnet",
+    "sccmSubnetAddressPrefix": "10.0.1.0/24",
     "publicIPAddressName": "adPublicIP",
     "adAvailabilitySetName": "adAvailabiltySet",
     "adLBName": "adLoadBalancer"
@@ -105,11 +113,17 @@
           "virtualNetworkAddressRange": {
             "value": "[variables('virtualNetworkAddressRange')]"
           },
-          "subnetName": {
+          "adSubnetName": {
             "value": "[variables('adSubnetName')]"
           },
-          "subnetRange": {
+          "adSubnetRange": {
             "value": "[variables('adSubnetAddressPrefix')]"
+          },
+          "sccmSubnetName": {
+            "value": "[variables('sccmSubnetName')]"
+          },
+          "sccmSubnetRange": {
+            "value": "[variables('sccmSubnetAddressPrefix')]"
           }
         }
       }

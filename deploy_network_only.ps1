@@ -15,7 +15,11 @@ New-AzureRmResourceGroup `
 New-AzureRmResourceGroupDeployment `
     -Name $deploymentName `
     -ResourceGroupName $rgName `
-    -TemplateFile .\azuredeploy.json `
-    -TemplateParameterFile .\azuredeploy.parameters.json `
-    -envName $envName
+    -TemplateFile .\nestedtemplates\vnet.json `
+    -virtualNetworkName 'testVNET' `
+    -virtualNetworkAddressRange "10.0.0.0/16" `
+    -adSubnetName "adSubnet" `
+    -adSubnetRange "10.0.0.0/24" `
+    -sccmSubnetName "sccmSubnet" `
+    -sccmSubnetRange "10.0.1.0/24"
 

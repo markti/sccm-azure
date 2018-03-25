@@ -3,16 +3,22 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
-      "value": "GEN-UNIQUE"
+      "value": "LabAdmin"
+
     },
     "adminPassword": {
-      "value": "GEN-PASSWORD"
+	  "reference": {
+		  "keyVault": {
+			"id": "/subscriptions/03ebde09-fde9-4daa-87a6-d5666f2ad449/resourceGroups/WenLabVault/providers/Microsoft.KeyVault/vaults/wenlabsccmvault"
+		  },
+		  "secretName": "VMAdminPassword"
+		}
     },
     "domainName": {
-      "value": "mydomain.local"
+      "value": "wenres.local"
     },
     "dnsPrefix": {
-      "value": "GEN-UNIQUE"
+      "value": "wenres"
     }
   }
 }
