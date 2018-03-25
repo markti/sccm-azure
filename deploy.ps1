@@ -1,4 +1,4 @@
-$envName = "WenSccmDev"
+$envName = "WenSccmDevC"
 
 $rgName = $envName + "Rg"
 $deploymentName = $envName + "Dep"
